@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,11 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String BOOK_URL_BASE =
             "https://www.googleapis.com/books/v1/volumes?q=";
 
-    // Google Books URL with the given key Android for the query result
-    private static final String BOOK_URL_ANDROID =
-            "https://www.googleapis.com/books/v1/volumes?q=harrypotter&maxResults=10";
-
-    // Add a maximum results of 10 to the search query
+        // Add a maximum results of 10 to the search query
     private static final String MAX_RESULTS = "&maxResults=10";
 
     // Adapter for the Book list
@@ -51,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     // ProgressBar that is visible when
     private View loadingIndicator;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         //Create a ConnectivityManager and get the NetworkInfo from it
         final ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-
-        //Create a boolean variable for the connectivity status
         final boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+        //Create a boolean variable for the connectivity status
+
 
         // Find a reference to Views
         final ListView bookListView = (ListView) findViewById(R.id.list_view);
@@ -70,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         ImageButton searchButton = (ImageButton) findViewById(R.id.search_button);
         mEmptyView = (TextView) findViewById(R.id.empty_text_view);
         loadingIndicator = findViewById(R.id.progress_bar);
-
 
         // Set empty state view on the list view with books, when there is no data.
         bookListView.setEmptyView(mEmptyView);
@@ -99,25 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        BookListAsyncTask task = new BookListAsyncTask();
-
-        //If the device is connected to the network
-        if (isConnected) {
-            Log.e(LOG_TAG, "This is called when there is an Internet connection.");
-            // Start the AsyncTask to fetch the books data
-            task.execute(BOOK_URL_ANDROID);
-            //If the device is not connected to the network
-        } else {
-            Log.e(LOG_TAG, "This is called when there is NO Internet connection.");
-            // Otherwise, display error
-            // First, hide loading indicator so error will be visible
-            loadingIndicator.setVisibility(View.GONE);
-            //Show the empty state with no connection error message
-            mEmptyView.setVisibility(View.VISIBLE);
-            //Update empty state with no connection error message
-            mEmptyView.setText(R.string.no_connection);
-        }
 
         // Set a click listener to the ImageButton Search
         searchButton.setOnClickListener(new ImageButton.OnClickListener() {
@@ -208,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
          * query to Google Books API. Then updates the adapter with the new list of books,
          * which will trigger the ListView to re-populate its list items.
          */
-        @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
         @Override
         protected void onPostExecute(List<Book> books) {
             // First, hide loading indicator so error will be visible
@@ -228,5 +201,4 @@ public class MainActivity extends AppCompatActivity {
                 mEmptyView.setText(R.string.no_connection);
             }
         }
-    }
-}
+    }}

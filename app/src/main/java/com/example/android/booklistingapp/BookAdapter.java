@@ -17,10 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-
 public class BookAdapter extends ArrayAdapter<Book> {
-
-
 
 
     /**
@@ -29,11 +26,10 @@ public class BookAdapter extends ArrayAdapter<Book> {
      * to populate into the lists.
      *
      * @param context The current context. Used to inflate the layout file.
-     * @param books   A List of AndroidFlavor objects to display in a list
-     *
+     * @param books   A List of Book objects to display in a list
      */
 
-    public BookAdapter(Context context, ArrayList<Book> books ) {
+    public BookAdapter(Context context, ArrayList<Book> books) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
@@ -63,51 +59,48 @@ public class BookAdapter extends ArrayAdapter<Book> {
         }
 
 
-
-
-
-        // Get the {@link AndroidFlavor} object located at this position in the list
+        // Get the {@link Book} object located at this position in the list
         Book currentBook = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView titleTextView = (TextView) listItemView.findViewById(R.id.book_title);
-        // Get the version name from the current Word object and
+        // Get the version name from the current Book object and
         // set this text on the name TextView
         titleTextView.setText(currentBook.getTitle());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView publisherTextView = (TextView) listItemView.findViewById(R.id.publisher);
-        // Get the version number from the current AndroidFlavor object and
+        // Get the version number from the current Book object and
         // set this text on the number TextView
         publisherTextView.setText(currentBook.getPublisher());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView publishedDateTextView = (TextView) listItemView.findViewById(R.id.published_date);
-        // Get the version number from the current AndroidFlavor object and
+        // Get the version number from the current Book object and
         // set this text on the number TextView
         publishedDateTextView.setText(currentBook.getPublishedDate());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView categoriesTextView = (TextView) listItemView.findViewById(R.id.categories);
-        // Get the version number from the current AndroidFlavor object and
+        // Get the version number from the current Book object and
         // set this text on the number TextView
         categoriesTextView.setText(currentBook.getCategories());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView descriptionTextView = (TextView) listItemView.findViewById(R.id.description);
-        // Get the version number from the current AndroidFlavor object and
+        // Get the version number from the current Book object and
         // set this text on the number TextView
         descriptionTextView.setText(currentBook.getDescription());
 
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView authorTextView = (TextView) listItemView.findViewById(R.id.author);
-        // Get the version number from the current AndroidFlavor object and
+        // Get the version number from the current Book object and
         // set this text on the number TextView
         authorTextView.setText(currentBook.getBookAuthor());
 
 
-        // Find the ImageView dedicated to the bookcover
+        // Find the ImageView dedicated to the bookcover link
         ImageView coverImageView = (ImageView) listItemView.findViewById(R.id.cover_ImageView);
         String thumbnailLink = currentBook.getmThumbnailLink();
 
@@ -115,49 +108,49 @@ public class BookAdapter extends ArrayAdapter<Book> {
         AsyncTask<ImageView, Void, Bitmap> imageViewVoidBitmapAsyncTask = new DownloadImagesTask(thumbnailLink)
                 .execute(coverImageView);
 
-        // Return the whole list item layout (containing 2 TextViews and an ImageView)
+        // Return the whole list item layout (containing 6 TextViews and an ImageView)
         // so that it can be shown in the ListView
         return listItemView;
     }
 
-        public class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
-          private ImageView imageView;
-       private String url;
-       public DownloadImagesTask(String url) {
-          this.url = url;
+    public class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
+        private ImageView imageView;
+        private String url;
+
+        public DownloadImagesTask(String url) {
+            this.url = url;
         }
 
 
         @Override
-       protected Bitmap doInBackground(ImageView... imageViews) {
-         this.imageView = imageViews[0];
-         return download_Image(url);
-             }
+        protected Bitmap doInBackground(ImageView... imageViews) {
+            this.imageView = imageViews[0];
+            return download_Image(url);
+        }
 
-         @Override
+        @Override
         protected void onProgressUpdate(Void... values) {
-         super.onProgressUpdate(values);
+            super.onProgressUpdate(values);
         }
-         @Override
-      protected void onPostExecute(Bitmap result) {
-         imageView.setImageBitmap(result);
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
         }
+
         private Bitmap download_Image(String urlParam) {
 
-         Bitmap bmp = null;
-             try {
-          URL url = new URL(urlParam);
-           HttpURLConnection con = (HttpURLConnection) url.openConnection();
-           InputStream is = con.getInputStream();
-            bmp = BitmapFactory.decodeStream(is);
-             if (null != bmp)
-               return bmp;
+            Bitmap bmp = null;
+            try {
+                URL url = new URL(urlParam);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                InputStream is = con.getInputStream();
+                bmp = BitmapFactory.decodeStream(is);
+                if (null != bmp)
+                    return bmp;
             } catch (Exception e) {
             }
-          return bmp;
-         }
-     }
-
-
-
+            return bmp;
+        }
+    }
 }

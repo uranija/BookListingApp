@@ -2,12 +2,6 @@
     <string name="app_name">BookListingApp</string>
     <string name="hint">type here title of the book or author</string>
     <string name="no_books_found">No books found.</string>
-    <string name="Title">title</string>
+    <string name="Title">Title</string>
     <string name="no_connection">There is no internet connection.</string>
-
-
-
-
-
-
 </resources>

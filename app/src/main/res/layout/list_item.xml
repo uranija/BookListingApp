@@ -7,7 +7,6 @@
     android:paddingBottom="@dimen/padding_normal"
     android:paddingTop="@dimen/padding_normal">
 
-
     <ImageView
         android:id="@+id/cover_ImageView"
         android:layout_gravity="center"
@@ -68,20 +67,5 @@
             android:layout_height="wrap_content"
             tools:text="Description" />
 
-
     </LinearLayout>
 </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
