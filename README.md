@@ -3,12 +3,13 @@
 
 
 
-The goal was to design and create the structure of a Book Listing app which would allow a user to get a list of published books on a given topic. You will be using the google books api in order to fetch results and display them to the user.
+The goal was to design and create the structure of a Book Listing app which would allow a user to get a list of published books on a given topic. I was given google books api in order to fetch results and display them to the user.
 
-Fetching data from an API
-Using an AsyncTask
-Parsing a JSON response
-Creating a list based on that data and displaying it to the user
+## Project overview
+- Fetching data from an API
+- Using an AsyncTask
+- Parsing a JSON response
+- Creating a list based on that data and displaying it to the user
 
 For this project, you will be creating a book listing app. A user should be able to enter a keyword, press the search button, and recieve a list of published books which relate to that keyword.
 
